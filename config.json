@@ -1,0 +1,6 @@
+{
+  "alturaMaxima": 25,
+  "capacidade": 10,
+  "porta": "COM3",
+  "baudRate": 9600
+}

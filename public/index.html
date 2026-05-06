@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WaterLevel</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="brand-icon">💧</span>
+      <span>WaterLevel</span>
+    </div>
+    <div class="navbar-links">
+      <a href="#" class="nav-link active" data-page="dashboard">Dashboard</a>
+      <a href="#" class="nav-link" data-page="config">Configurações</a>
+    </div>
+    <div class="navbar-status">
+      <span id="status-dot" class="status-dot disconnected"></span>
+      <span id="status-text">Desconectado</span>
+    </div>
+  </nav>
+
+  <main id="page-dashboard" class="page active">
+    <div class="container">
+
+      <div class="cards-grid">
+        <div class="card card-blue">
+          <div class="card-label">Nível atual</div>
+          <div class="card-value" id="val-litros">–</div>
+          <div class="card-unit">litros</div>
+        </div>
+        <div class="card card-teal">
+          <div class="card-label">Percentual</div>
+          <div class="card-value" id="val-percent">–</div>
+          <div class="card-unit">%</div>
+        </div>
+        <div class="card card-gray">
+          <div class="card-label">Distância</div>
+          <div class="card-value" id="val-dist">–</div>
+          <div class="card-unit">cm</div>
+        </div>
+        <div class="card card-green">
+          <div class="card-label">Capacidade</div>
+          <div class="card-value" id="val-cap">–</div>
+          <div class="card-unit">litros</div>
+        </div>
+      </div>
+
+      <div class="section-row">
+        <div class="panel panel-gauge">
+          <div class="panel-title">Nível da Caixa</div>
+          <div class="gauge-wrap">
+            <div class="tank-outer">
+              <div class="tank-inner">
+                <div class="tank-fill" id="tank-fill">
+                  <span class="tank-label" id="tank-label">0%</span>
+                </div>
+              </div>
+            </div>
+            <div class="alert-badge" id="alert-badge" style="display:none">⚠ Nível baixo!</div>
+          </div>
+        </div>
+
+        <div class="panel panel-chart">
+          <div class="panel-title">
+            Histórico de Nível
+            <button class="btn-clear" id="btn-clear">Limpar</button>
+          </div>
+          <div style="position:relative; flex:1; min-height:0;">
+            <canvas id="chart-nivel"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <main id="page-config" class="page">
+    <div class="container">
+      <div class="panel config-panel">
+        <div class="panel-title">Configurações da Caixa</div>
+
+        <div class="config-grid">
+          <div class="form-group">
+            <label for="cfg-capacidade">Capacidade total (litros)</label>
+            <input type="number" id="cfg-capacidade" min="1" step="0.5" placeholder="ex: 10" />
+            <span class="form-hint">Volume máximo da caixa</span>
+          </div>
+          <div class="form-group">
+            <label for="cfg-altura">Altura máxima (cm)</label>
+            <input type="number" id="cfg-altura" min="1" step="0.5" placeholder="ex: 25" />
+            <span class="form-hint">Distância quando vazia</span>
+          </div>
+          <div class="form-group">
+            <label for="cfg-porta">Porta serial</label>
+            <input type="text" id="cfg-porta" placeholder="ex: COM3 ou /dev/ttyUSB0" />
+            <span class="form-hint">Porta do Arduino</span>
+          </div>
+          <div class="form-group">
+            <label for="cfg-baud">Baud rate</label>
+            <select id="cfg-baud">
+              <option value="9600">9600</option>
+              <option value="115200">115200</option>
+              <option value="57600">57600</option>
+              <option value="38400">38400</option>
+            </select>
+            <span class="form-hint">Velocidade da serial</span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-primary" id="btn-salvar">Salvar configurações</button>
+          <span class="save-msg" id="save-msg"></span>
+        </div>
+
+        <div class="config-info">
+          <div class="info-title">ℹ Como funciona</div>
+          <ul>
+            <li>O sensor ultrassônico mede a distância até a superfície da água</li>
+            <li>A <strong>altura máxima</strong> é a leitura quando a caixa está <strong>vazia</strong></li>
+            <li>A <strong>capacidade</strong> é o volume real quando cheia</li>
+            <li>Alterar a porta serial reinicia a conexão automaticamente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
