@@ -8,6 +8,7 @@
 </head>
 <body>
 
+  <!-- ── Navbar ─────────────────────────────────────────── -->
   <nav class="navbar">
     <div class="navbar-brand">
       <span class="brand-icon">💧</span>
@@ -23,9 +24,11 @@
     </div>
   </nav>
 
+  <!-- ── Página: Dashboard ──────────────────────────────── -->
   <main id="page-dashboard" class="page active">
     <div class="container">
 
+      <!-- Cards de métricas -->
       <div class="cards-grid">
         <div class="card card-blue">
           <div class="card-label">Nível atual</div>
@@ -49,6 +52,7 @@
         </div>
       </div>
 
+      <!-- Tanque + Gráfico -->
       <div class="section-row">
         <div class="panel panel-gauge">
           <div class="panel-title">Nível da Caixa</div>
@@ -67,7 +71,15 @@
         <div class="panel panel-chart">
           <div class="panel-title">
             Histórico de Nível
-            <button class="btn-clear" id="btn-clear">Limpar</button>
+            <div class="chart-actions">
+              <div class="filter-group">
+                <button class="btn-filter active" data-range="5m">5min</button>
+                <button class="btn-filter" data-range="1h">1h</button>
+                <button class="btn-filter" data-range="24h">24h</button>
+                <button class="btn-filter" data-range="tudo">Tudo</button>
+              </div>
+              <button class="btn-clear" id="btn-clear">Limpar</button>
+            </div>
           </div>
           <div style="position:relative; flex:1; min-height:0;">
             <canvas id="chart-nivel"></canvas>
@@ -75,11 +87,41 @@
         </div>
       </div>
 
+      <!-- Log de eventos + Exportar -->
+      <div class="section-row-full">
+        <div class="panel panel-events">
+          <div class="panel-title">
+            Log de Eventos
+            <span class="events-count" id="events-count">0</span>
+          </div>
+          <div class="events-list" id="events-list">
+            <div class="events-empty">Nenhum evento registrado ainda</div>
+          </div>
+        </div>
+
+        <div class="panel panel-export">
+          <div class="panel-title">Exportar Dados</div>
+          <p class="export-desc">Baixe o histórico de leituras em CSV para análise no Excel ou similar.</p>
+          <div class="export-buttons">
+            <a href="/api/exportar?periodo=1h" class="btn-export">Última hora</a>
+            <a href="/api/exportar?periodo=24h" class="btn-export">Últimas 24h</a>
+            <a href="/api/exportar?periodo=7d" class="btn-export">Últimos 7 dias</a>
+            <a href="/api/exportar?periodo=tudo" class="btn-export btn-export-main">Tudo</a>
+          </div>
+          <div class="export-stats">
+            <span id="export-count">0</span> leituras em memória
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
+  <!-- ── Página: Configurações ─────────────────────────── -->
   <main id="page-config" class="page">
     <div class="container">
+
+      <!-- Config da Caixa -->
       <div class="panel config-panel">
         <div class="panel-title">Configurações da Caixa</div>
 
@@ -94,38 +136,80 @@
             <input type="number" id="cfg-altura" min="1" step="0.5" placeholder="ex: 25" />
             <span class="form-hint">Distância quando vazia</span>
           </div>
-          <div class="form-group">
-            <label for="cfg-porta">Porta serial</label>
-            <input type="text" id="cfg-porta" placeholder="ex: COM3 ou /dev/ttyUSB0" />
-            <span class="form-hint">Porta do Arduino</span>
-          </div>
-          <div class="form-group">
-            <label for="cfg-baud">Baud rate</label>
-            <select id="cfg-baud">
-              <option value="9600">9600</option>
-              <option value="115200">115200</option>
-              <option value="57600">57600</option>
-              <option value="38400">38400</option>
-            </select>
-            <span class="form-hint">Velocidade da serial</span>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button class="btn-primary" id="btn-salvar">Salvar configurações</button>
-          <span class="save-msg" id="save-msg"></span>
-        </div>
-
-        <div class="config-info">
-          <div class="info-title">ℹ Como funciona</div>
-          <ul>
-            <li>O sensor ultrassônico mede a distância até a superfície da água</li>
-            <li>A <strong>altura máxima</strong> é a leitura quando a caixa está <strong>vazia</strong></li>
-            <li>A <strong>capacidade</strong> é o volume real quando cheia</li>
-            <li>Alterar a porta serial reinicia a conexão automaticamente</li>
-          </ul>
         </div>
       </div>
+
+      <!-- Alertas -->
+      <div class="panel config-panel">
+        <div class="panel-title">Alertas</div>
+
+        <div class="config-grid">
+          <div class="form-group">
+            <label for="cfg-alerta-baixo">Alerta de nível baixo (%)</label>
+            <input type="number" id="cfg-alerta-baixo" min="0" max="100" step="1" placeholder="ex: 20" />
+            <span class="form-hint">Notifica quando o nível cair abaixo deste valor</span>
+          </div>
+          <div class="form-group">
+            <label for="cfg-alerta-alto">Alerta de caixa cheia (%)</label>
+            <input type="number" id="cfg-alerta-alto" min="0" max="100" step="1" placeholder="ex: 90" />
+            <span class="form-hint">Notifica quando o nível subir acima deste valor</span>
+          </div>
+          <div class="form-group">
+            <label class="toggle-label">
+              <input type="checkbox" id="cfg-som" />
+              <span class="toggle-switch"></span>
+              Notificação sonora
+            </label>
+            <span class="form-hint">Toca um alerta sonoro ao cruzar os limites</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Configurações Avançadas -->
+      <div class="panel config-panel">
+        <button class="advanced-toggle" id="advanced-toggle">
+          <span class="advanced-arrow" id="advanced-arrow">▶</span>
+          Configurações Avançadas
+        </button>
+
+        <div class="advanced-content" id="advanced-content">
+          <div class="config-grid">
+            <div class="form-group">
+              <label for="cfg-porta">Porta serial</label>
+              <input type="text" id="cfg-porta" placeholder="ex: COM3 ou /dev/ttyUSB0" />
+              <span class="form-hint">Porta do Arduino</span>
+            </div>
+            <div class="form-group">
+              <label for="cfg-baud">Baud rate</label>
+              <select id="cfg-baud">
+                <option value="9600">9600</option>
+                <option value="115200">115200</option>
+                <option value="57600">57600</option>
+                <option value="38400">38400</option>
+              </select>
+              <span class="form-hint">Velocidade da serial (deve ser igual ao Serial.begin() do Arduino)</span>
+            </div>
+          </div>
+
+          <div class="config-info">
+            <div class="info-title">ℹ Sobre a conexão serial</div>
+            <ul>
+              <li>O sensor ultrassônico mede a distância até a superfície da água</li>
+              <li>A porta serial é o canal USB entre o Arduino e o computador</li>
+              <li>Alterar a porta ou baud rate reinicia a conexão automaticamente</li>
+              <li>No Windows a porta é geralmente <strong>COM3</strong> ou <strong>COM4</strong></li>
+              <li>No Linux é geralmente <strong>/dev/ttyUSB0</strong> ou <strong>/dev/ttyACM0</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão salvar -->
+      <div class="form-actions">
+        <button class="btn-primary" id="btn-salvar">Salvar todas as configurações</button>
+        <span class="save-msg" id="save-msg"></span>
+      </div>
+
     </div>
   </main>
 

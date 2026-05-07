@@ -2,5 +2,8 @@
   "alturaMaxima": 25,
   "capacidade": 10,
   "porta": "COM3",
-  "baudRate": 9600
+  "baudRate": 9600,
+  "alertaBaixo": 20,
+  "alertaAlto": 90,
+  "somAtivado": true
 }
