@@ -1,0 +1,51 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.unit {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.blue {
+  border-left: 3px solid var(--blue);
+  background: linear-gradient(135deg, var(--surface) 60%, var(--blue-dim));
+}
+.blue .value { color: var(--blue); }
+
+.teal {
+  border-left: 3px solid var(--teal);
+  background: linear-gradient(135deg, var(--surface) 60%, var(--teal-dim));
+}
+.teal .value { color: var(--teal); }
+
+.green {
+  border-left: 3px solid var(--green);
+  background: linear-gradient(135deg, var(--surface) 60%, var(--green-dim));
+}
+.green .value { color: var(--green); }
+
+.gray {
+  border-left: 3px solid var(--muted);
+  background: linear-gradient(135deg, var(--surface) 60%, var(--gray-dim));
+}
+.gray .value { color: var(--text); }

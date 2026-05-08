@@ -1,0 +1,39 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #22263a;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #e8eaf0;
+  --muted: #8890a6;
+  --blue: #4a9eff;
+  --blue-dim: rgba(74, 158, 255, 0.12);
+  --teal: #2ed8b6;
+  --teal-dim: rgba(46, 216, 182, 0.12);
+  --green: #56e07e;
+  --green-dim: rgba(86, 224, 126, 0.12);
+  --amber: #ffb547;
+  --amber-dim: rgba(255, 181, 71, 0.12);
+  --red: #ff5f72;
+  --red-dim: rgba(255, 95, 114, 0.12);
+  --gray-dim: rgba(255, 255, 255, 0.06);
+  --radius: 12px;
+  --navbar-h: 60px;
+  font-size: 15px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}

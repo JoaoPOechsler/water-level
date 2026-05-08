@@ -1,0 +1,103 @@
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.outer {
+  width: 100px;
+  height: 200px;
+  border: 2.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px 6px 10px 10px;
+  padding: 3px;
+  background: rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px 4px 8px 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.fill {
+  width: 100%;
+  height: 0%;
+  border-radius: 0 0 7px 7px;
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1), background 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 120%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  animation: wave 2s linear infinite;
+}
+
+@keyframes wave {
+  to { left: 60%; }
+}
+
+.low  { background: linear-gradient(180deg, var(--red) 0%, #c02030 100%); }
+.mid  { background: linear-gradient(180deg, var(--amber) 0%, #c07a10 100%); }
+.high { background: linear-gradient(180deg, var(--blue) 0%, #2460d8 100%); }
+.full { background: linear-gradient(180deg, var(--teal) 0%, #15a08a 100%); }
+
+.label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.alertBadge {
+  background: var(--red-dim);
+  color: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}

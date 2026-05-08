@@ -4,7 +4,10 @@
   "description": "Dashboard de monitoramento de nível de água via Arduino",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev:server": "node server.js",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client"
   },
   "dependencies": {
     "@serialport/parser-readline": "^12.0.0",

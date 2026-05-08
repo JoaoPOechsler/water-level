@@ -1,0 +1,102 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 800px) {
+  .cardsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.sectionRow {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .sectionRow { grid-template-columns: 1fr; }
+}
+
+.sectionRowFull {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .sectionRowFull { grid-template-columns: 1fr; }
+}
+
+/* ── Export panel ── */
+.exportPanel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panelTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.exportDesc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.exportButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.btnExport {
+  display: inline-block;
+  text-decoration: none;
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btnExport:hover {
+  border-color: var(--blue);
+  background: var(--blue-dim);
+}
+
+.btnExportMain {
+  background: var(--blue-dim);
+  border-color: rgba(74, 158, 255, 0.3);
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.exportStats {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
